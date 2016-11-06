@@ -1,0 +1,122 @@
+@import "variables";
+
+/*
+
+FLEX CONTAINERS - sets the flex direction
+    row-xs
+    col-xs
+
+RESPONSIVE ALIGNMENTS
+
+1.  horizontal (using "justify-content") 
+    start-xs, 
+    center-xs
+    end-xs
+
+2.  vertical (using "align-items") 
+    top-xs
+    middle-xs
+    bottom-xs
+
+*/
+
+.flex-container {
+    display: -webkit-flex; 
+    display: flex;
+}
+
+@each $key, $val in $grid-breakpoints {
+
+    @media screen and (min-width: $val) { 
+
+        /* FLEX CONTAINERS - sets the flex direction e.g:
+            row-xs
+            col-xs
+        
+        A container should be EITHER a row OR a column
+        */
+        .row-#{$key} {
+            @extend .flex-container;
+            flex-direction: row;
+        }
+
+        .row-reverse-#{$key} {
+            @extend .flex-container;
+            flex-direction: row-reverse;
+        }
+
+        .col-#{$key} {
+            @extend .flex-container;
+            flex-direction: column;
+        }
+
+        .col-reverse-#{$key} {
+            @extend .flex-container;
+            flex-direction: column-reverse;
+        }
+
+        /* HORIZONTAL ALIGNMENTS
+
+        1.  horizontal (using "justify-content") 
+            start-xs, 
+            center-xs
+            end-xs
+        */
+
+        .start-#{$key} {
+            justify-content: flex-start;
+        }
+
+        .center-#{$key} {
+            justify-content: center;
+        }
+
+        .end-#{$key} {
+            justify-content: flex-end;
+        }
+
+        /* VERTICAL ALIGNMENTS
+
+        2.  vertical (using "align-items") 
+            top-xs
+            middle-xs
+            bottom-xs
+        */
+        
+        .top-#{$key} {
+            align-items: flex-start;
+            text-align: left;
+
+        }
+
+        .middle-#{$key} {
+            align-items: center;
+            text-align: center;
+        }
+
+        .bottom-#{$key} {
+            align-items: flex-end;
+        }
+
+        // SOME ADDITIONAL ALIGNMENT OPTIONS
+
+        .flex-wrap-#{$key} {
+        -webkit-flex-wrap: wrap;
+        flex-wrap:         wrap;
+        }
+
+        .flex-between-#{$key} {
+            justify-content: flex-between;
+        }
+
+        .flex-around-#{$key} {
+            justify-content: flex-around;
+        }
+
+
+    }
+
+}
+
+
+
