@@ -1,11 +1,16 @@
 {
   "name": "flexbox-lite",
   "version": "1.0.0",
-  "description": "``` npm install --save-dev flexbox-lite ```",
-  "main": "index.js",
+  "description": "Minimal responsive classes for flexbox",
+  "main": "sass/flexbox-lite.scss",
   "scripts": {
+    "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Robert Tucker <rob@coderlab.co.uk>",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2"
+  }
 }

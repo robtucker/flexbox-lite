@@ -1,28 +1,18 @@
 @import "variables";
 
-/*
-
-FLEX CONTAINERS - sets the flex direction
-    row-xs
-    col-xs
-
-RESPONSIVE ALIGNMENTS
-
-1.  horizontal (using "justify-content") 
-    start-xs, 
-    center-xs
-    end-xs
-
-2.  vertical (using "align-items") 
-    top-xs
-    middle-xs
-    bottom-xs
-
-*/
-
-.flex-container {
+@mixin flex-container() {
     display: -webkit-flex; 
     display: flex;
+}
+
+.row {
+    @include flex-container();
+    flex-direction: row;
+}
+
+.col {
+    @include flex-container();
+    flex-direction: row;
 }
 
 @each $key, $val in $grid-breakpoints {
@@ -36,22 +26,22 @@ RESPONSIVE ALIGNMENTS
         A container should be EITHER a row OR a column
         */
         .row-#{$key} {
-            @extend .flex-container;
+            @include flex-container();
             flex-direction: row;
         }
 
         .row-reverse-#{$key} {
-            @extend .flex-container;
+            @include flex-container();
             flex-direction: row-reverse;
         }
 
         .col-#{$key} {
-            @extend .flex-container;
+            @include flex-container();
             flex-direction: column;
         }
 
         .col-reverse-#{$key} {
-            @extend .flex-container;
+            @include flex-container();
             flex-direction: column-reverse;
         }
 
@@ -112,11 +102,6 @@ RESPONSIVE ALIGNMENTS
         .flex-around-#{$key} {
             justify-content: flex-around;
         }
-
-
     }
 
 }
-
-
-
