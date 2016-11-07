@@ -1,0 +1,33 @@
+// flex wrap
+@if $enable-flex-wrap === true {
+    @each $key, $val in $grid-breakpoints {
+        @media screen and (min-width: $val) { 
+            .flex-wrap-#{$key} {
+                -webkit-flex-wrap: wrap;
+                flex-wrap:         wrap;
+            }
+        }
+    }
+}
+
+// flex between
+@if $enable-flex-between === true {
+    @each $key, $val in $grid-breakpoints {
+        @media screen and (min-width: $val) { 
+            .flex-between-#{$key} {
+                justify-content: flex-between;
+            }        
+        }
+    }
+}
+
+//flex-around
+@if $enable-flex-around === true {
+    @each $key, $val in $grid-breakpoints {
+        @media screen and (min-width: $val) { 
+            .flex-around-#{$key} {
+                justify-content: flex-around;
+            }         
+        }
+    }
+}

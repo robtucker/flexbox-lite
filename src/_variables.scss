@@ -5,3 +5,18 @@ $grid-breakpoints: (
   lg: 992px,
   xl: 1200px
 ) !default;
+
+
+$percentages: (
+  100: 100%,
+  75: 75%,
+  66: 66.66%, 
+  50: 50%,
+  33: 33.33%,
+  25: 25%
+) !default;
+
+
+$enable-flex-wrap: false !default;
+$enable-flex-between: false !default;
+$enable-flex-around: false !default;

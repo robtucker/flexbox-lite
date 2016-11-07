@@ -2,7 +2,7 @@
   "name": "flexbox-lite",
   "version": "1.0.1",
   "description": "Minimal responsive classes for flexbox",
-  "main": "sass/flexbox-lite.scss",
+  "main": "src/flexbox-lite.scss",
   "scripts": {
     "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2"
   }
 }

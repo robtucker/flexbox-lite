@@ -1,5 +1,6 @@
 @import "variables";
 
+/* A container is either a row or a column */
 @mixin flex-container() {
     display: -webkit-flex; 
     display: flex;
@@ -15,29 +16,32 @@
     flex-direction: row;
 }
 
+
 @each $key, $val in $grid-breakpoints {
 
     @media screen and (min-width: $val) { 
 
-        /* FLEX CONTAINERS - sets the flex direction e.g:
+        /* FLEX CONTAINERS - sets the flex direction for each breakpoint e.g:
             row-xs
             col-xs
         
-        A container should be EITHER a row OR a column
+        A container should be EITHER a row OR a column 
+        There is no need to have columns inside rows - that is not the way of flexbox
         */
         .row-#{$key} {
             @include flex-container();
             flex-direction: row;
         }
 
-        .row-reverse-#{$key} {
-            @include flex-container();
-            flex-direction: row-reverse;
-        }
-
         .col-#{$key} {
             @include flex-container();
             flex-direction: column;
+        }
+
+        /* The reverse option simply renders the child elements in the opposite order */
+        .row-reverse-#{$key} {
+            @include flex-container();
+            flex-direction: row-reverse;
         }
 
         .col-reverse-#{$key} {
@@ -47,7 +51,7 @@
 
         /* HORIZONTAL ALIGNMENTS
 
-        1.  horizontal (using "justify-content") 
+        1.  horizontal options (using "justify-content" property) 
             start-xs, 
             center-xs
             end-xs
@@ -67,7 +71,7 @@
 
         /* VERTICAL ALIGNMENTS
 
-        2.  vertical (using "align-items") 
+        2.  vertical options (using "align-items" property) 
             top-xs
             middle-xs
             bottom-xs
@@ -88,20 +92,30 @@
             align-items: flex-end;
         }
 
-        // SOME ADDITIONAL ALIGNMENT OPTIONS
+        @each $percKey, $percVal in $percentages {
 
-        .flex-wrap-#{$key} {
-        -webkit-flex-wrap: wrap;
-        flex-wrap:         wrap;
-        }
+            .width-#{$percKey}-#{$key} {
+                width: $percVal;
+            }
 
-        .flex-between-#{$key} {
-            justify-content: flex-between;
-        }
-
-        .flex-around-#{$key} {
-            justify-content: flex-around;
+            .height-#{$percKey}-#{$key} {
+                height: $percVal;
+            }        
         }
     }
-
 }
+
+
+@each $percKey, $percVal in $percentages {
+
+    .width-#{$percKey} {
+        width: $percVal;
+    }
+
+    .height-#{$percKey} {
+        height: $percVal;
+    }    
+}
+
+//@import "flex-additions"
+
