@@ -1,5 +1,5 @@
 // flex wrap
-@if $enable-flex-wrap === true {
+@if $enable-flex-wrap == true {
     @each $key, $val in $grid-breakpoints {
         @media screen and (min-width: $val) { 
             .flex-wrap-#{$key} {
@@ -11,7 +11,7 @@
 }
 
 // flex between
-@if $enable-flex-between === true {
+@if $enable-flex-between == true {
     @each $key, $val in $grid-breakpoints {
         @media screen and (min-width: $val) { 
             .flex-between-#{$key} {
@@ -22,7 +22,7 @@
 }
 
 //flex-around
-@if $enable-flex-around === true {
+@if $enable-flex-around == true {
     @each $key, $val in $grid-breakpoints {
         @media screen and (min-width: $val) { 
             .flex-around-#{$key} {

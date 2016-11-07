@@ -1,11 +1,15 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass')
-    rename = require('gulp-rename');
+    rename = require('gulp-rename')
+    colors = require('colors');
 
 gulp.task('default', function() {
-    gulp.src('./src/flex.scss')
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+
+    gulp.src('./src/flexbox-lite.scss')
+    .pipe(sass({outputStyle: 'compressed'}))
     .pipe(rename('flexbox-lite.min.css'))
     .pipe(gulp.dest('./dist'));
+
+    console.log('executed default task successfully'.green);
 
 });

@@ -1,4 +1,5 @@
 @import "variables";
+@import "flex-additions";
 
 /* A container is either a row or a column */
 @mixin flex-container() {
@@ -92,6 +93,8 @@
             align-items: flex-end;
         }
 
+
+        // widths and heights
         @each $percKey, $percVal in $percentages {
 
             .width-#{$percKey}-#{$key} {
@@ -100,12 +103,21 @@
 
             .height-#{$percKey}-#{$key} {
                 height: $percVal;
-            }        
+            }  
+        }
+
+        // flex grow
+        @if $enable-flex-grow == true {
+            @each $growVal in $flex-grow-factors {
+                .flex-grow-#{$growVal}-#{$key} {
+                    flex-grow: $growVal;
+                }
+            }    
         }
     }
 }
 
-
+// widths and heights
 @each $percKey, $percVal in $percentages {
 
     .width-#{$percKey} {
@@ -114,8 +126,5 @@
 
     .height-#{$percKey} {
         height: $percVal;
-    }    
+    }  
 }
-
-//@import "flex-additions"
-

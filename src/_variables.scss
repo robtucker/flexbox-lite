@@ -16,6 +16,10 @@ $percentages: (
   25: 25%
 ) !default;
 
+$flex-grow-factors: 1, 2, 3 !default;
+
+// enable flex grow by default
+$enable-flex-grow: true !default;
 
 $enable-flex-wrap: false !default;
 $enable-flex-between: false !default;

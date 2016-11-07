@@ -10,6 +10,7 @@
   "author": "Robert Tucker <rob@coderlab.co.uk>",
   "license": "ISC",
   "devDependencies": {
+    "colors": "^1.1.2",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2"
