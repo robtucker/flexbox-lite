@@ -1,3 +1,4 @@
+// standard grid breakpoints are taken from bootstrap
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -6,8 +7,8 @@ $grid-breakpoints: (
   xl: 1200px
 ) !default;
 
-
-$percentages: (
+// width and height percentages to be made available across all screen sizes
+$flex-basis-percentages: (
   100: 100%,
   75: 75%,
   66: 66.66%, 
@@ -16,11 +17,14 @@ $percentages: (
   25: 25%
 ) !default;
 
-$flex-grow-factors: 1, 2, 3 !default;
+// child elements will be n times bigger than their sibling elements
+$flex-grow-factors: 1, 2, 3, 4, 5 !default;
 
-// enable flex grow by default
-$enable-flex-grow: true !default;
-
-$enable-flex-wrap: false !default;
-$enable-flex-between: false !default;
-$enable-flex-around: false !default;
+// trim the size of the build by removing responsive versions of some classes
+$enable-flex-grow-responsive: true !default;
+$enable-flex-wrap-responsive: false !default;
+$enable-flex-basis-responsive: false !default;
+$enable-justify-between-responsive: false !default;
+$enable-justify-around-responsive: false !default;
+$enable-align-baseline-responsive: false !default;
+$enable-align-self-responsive: false !default; 

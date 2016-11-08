@@ -1,17 +1,23 @@
 {
   "name": "flexbox-lite",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Minimal responsive classes for flexbox",
   "main": "src/flexbox-lite.scss",
   "scripts": {
-    "build": "gulp",
+    "start": "gulp start",
+    "build": "gulp build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Robert Tucker <rob@coderlab.co.uk>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robtucker/flexbox-lite"
+  },
   "license": "ISC",
   "devDependencies": {
     "colors": "^1.1.2",
     "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2"
   }

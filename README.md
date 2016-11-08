@@ -18,106 +18,163 @@ require('flexbox-lite');
 
 Or alternatively, use the pre-compiled `flexbox-lite.min.css` file in the dist folder and add it into your index.html
 
-###Gridless flexbox
+###Flexbox done properly
 
-Flexbox is simple and easy enough to use all by itself. It doesn't need to be wrapped in a grid system.
+By itslef, Flexbox is a wonderfully versatile and expressive system. Unfortunately many packages such as [bootstrap v4](http://v4-alpha.getbootstrap.com/layout/flexbox-grid/) and [flexboxgrid](http://flexboxgrid.com/) force flexbox into being a "grid" system with 12 columns. To me, this seems like forcing a porsche into being a bicycle. 
 
-In particular, grid systems such as [flexboxgrid](http://flexboxgrid.com/) force you into the "bootstrap" way of doing things with 12 columns, which can be limiting.
+The version that ships with [ng-material](https://github.com/justindujardin/ng2-material/blob/master/src/core/style/layout.scss) is much better, but still not good enough. It attempts to abstract away the inner workings of flexbox for you. And it is 23 times bigger than this package.
 
-This package is intended to be a very simple and minimal method of applying only a few key styles: 
+This package comes out at 6kb unzipped and opts for a pure OOCSS approach. The classnames are based on the css properties and follow a simple naming scheme, so there is no need to learn some custom api.
+
+Under the hood, this package only uses a few key styles: 
 
 - flex-direction 
 - justify-content 
-- align-items 
-- flex-basis
+- align-items/align-self
+- flex/grow/flex-basis
 
-Each of these is applied to the standard breakpoints (xs, sm, md, lg, xl).
+Each of these properties is applied to the standard responsive breakpoints (xs, sm, md, lg, xl).
 
-If you haven't taken the time to understand flexbox yet I highly recommend you take a look at [this article](https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties#flex). 
+If you haven't taken the time to understand flexbox yet I recommend you take a look at [this article](https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties). 
 
-###Flex direction (flex-direction)
+###Flex containers (flex-direction)
 
-With flexbox a container div is EITHER a column (vertical) OR a row (horizontal). This is completely different from most grid layouts where you put columns inside rows. Here is an example of a responsive flexbox container:
+In the flexbox system, a container div is EITHER a row OR a column. This is completely different from most grid layouts where you put columns inside rows.
+
+This package allows you to optionally add a breakpoint to the end of most classnames. e.g. 
 
 ```
-<div class="col-xs row-sm"> {child elements} </div>
+row        // all breakpoints (synonymous with row-xs)
+row-xs     // xs and above
+row-sm     // sm and above
+row-md     // etc
+row-lg
+row-xl
 ```
 
-The child items will be vertically aligned on xs devices, but horizontally on sm and upwards.
+Here is an example of a responsive flexbox container - child items will be stacked vertically on xs devices, and stacked horizontally on md and upwards:
+
+```
+<div class="col-xs row-md"> {child elements} </div>
+```
 
 You can reverse the order of child items using:
 
 ```
-<div class="col-reverse-md row-reverse-lg">
+<div class="col-reverse-xs row-reverse-md">
 ```
 
 ###Horizontal positioning (justify-content)
 
-The horizontal positioning of child items is set using either: start, center or end:
+The "justify" key word is used to position items horizontally - this will set the "justify-content" css property. The following options can be used:
 
 ```
-start-xs
-center-sm
-end-md
+justify-start(-xs)     // => justify-content: flex-start;
+justify-center    // => justify-content: center;
+justify-end       // => justify-content: flex-end; 
+justify-around    // => justify-content: space-between; 
+justify-between   // => justify-content: space-around; 
 ```
 
-Here the child items will be left aligned on xs devices, but center aligned on sm and above:
+Note that these classes should be applied to the container div and will affect ALL child elements, e.g.
 
 ```
-<div class="row start-xs center-sm"> {child elements} </div>
+<div class="row justify-start-xs justify-center-sm"> {child elements} </div>
 ```
 
 ###Vertical positioning (align-items)
 
-Vertical positioning is set using either top, middle or bottom:
+The "align" key word is used to position items vertically - this will set the "align-items" css property.
 
 ```
-top-md
-middle-lg
-bottom-xl
+align-start(-xs)   // => align-items: flex-start;
+align-center       // => align-items: center;
+align-end          // => align-items: flex-end; 
+align-stretch      // => align-items: stretch;
+align-baseline     // => align-items: baseline; 
+```
+
+These classes are also applied to the container div and affect ALL child elements.
+
+If you wish to specify custom vertical alignment for individual child elements then apply the more specific "align-self" class to the child element:
+
+```
+align-self-start        // => align-self: flex-start;
+align-self-center       // => align-self: center;
+align-self-end          // => align-self: flex-end; 
+align-self-stretch      // => align-items: stretch;
+align-self-baseline     // => align-items: baseline; 
 ```
 
 ###The "horizontal" and "vertical" axes depend on the flex-direction
 
-When the flex-direction is set to row then the horizontal alignment is set using start, center, end (the "justify-content" property) and the vertical alignment is set using top, middle, bottom (the "align-items" property).
+Normally, when the flex-direction is set to row, the "justify-content" property controls the horizontal axis and "align-items" controls the vertical axis.
 
-HOWEVER: remember that when you set the flex-direction to column then the "horizontal" and "vertical" axes are the other way round. In others words, the horizontal alignment is now set using top, middle or bottom. This might be counter-intuitive at first, but this is how flexbox actually works and you will quickly get used to it.
+HOWEVER: when you set flex-direction to column the axes are reversed - "justify" now controls the vertical axis, and "align" controls the horizontal. 
 
-If you're not sure what all this is about then re-read [this article](https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties#flex).
+| flex-direction | "justify" axis | "align" axis |
+| -------------- | -------------- | ------------ |
+| row            | horizontal     | vertical     |
+| col            | vertical       | horizontal   |
 
-###Child widths and heights (flex-basis)
+It would be possible to do some clever css tricks to map the css class names to different css properties depending on the flex-direction. However, the entire purpose of this package is to offer direct access to the raw css properties using OOCSS, without abstracting away their inner workings.
 
-In flexbox, the notion of having column widths and offsets is replaced by simple percentages.
+If you're not sure what all this is about then re-read [this article](https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties).
 
-If you want all the child elements to share the space provided by the container equally, then simply give them all a width of 100% and they will divide the available space between themselves.
+###Flex grow and shrink
 
-A few classes have been provided to help you set the widths and heights of child items responsively:
+The flex property is set on child elements. It specifies how large a child element is compared to its sibling elements. 
 
-```
-width-100-xs
-width-75-xs
-width-66-xs
-width-50-xs
-width-33-xs
-width-25-xs
-
-height-100-xs
-height-75-xs
-height-66-xs
-height-50-xs
-height-33-xs
-height-25-xs
-```
-
-Here is an example of one common use case, where the child is 100% width on xs devices, 75% on md devices and 50% on lg and above:
+For instance, if you want all the child elements to share the available space equally, then give them all a class of flex-1. If you give one elements a class of flex-2 it will be twice as big as its siblings.
 
 ```
-<div class="row center-xs">
-  <div class="width-100-xs width-75-md width-50-lg"> {contents} </div>
-</div>
+flex-1(-xs)     // => flex-grow: 1; 
+flex-2          // => flex-grow: 2; 
+flex-3          // => flex-grow: 3; 
+etc.
 ```
 
-In many cases, you may not even need to apply any classes to the child items at all as the widths and heights are auto by default. From my perspective this is much more expressive than using a 12 grid column.
+A list of available growth factors is specified in the variables file: 
+
+```
+$flex-grow-factors: 1, 2, 3, 4, 5;
+``` 
+
+Only 1-5 are included by default. You can over-ride this variable if you need more. 
+
+###Flex-basis
+
+The "flex-basis" property is a lot like width/height except it's "direction" is unspecified. It could be vertical or horizontal depending on whether the flex direction of its parent is row or col.
+
+In most cases you actively don't want this behaviour. When you set the width property, you don't want it to suddenly become the height on mobile. 
+
+For this reason it is more normal to use the flex grow property in conjunction with standard width/height. Nevertheless the following classes are provided. 
+
+```
+flex-basis-100     // => flex-basis: 100%;
+flex-basis-75      // => flex-basis: 75%;
+flex-basis-66      // => flex-basis: 66.66%;
+flex-basis-50      // => flex-basis: 50%;
+flex-basis-33      // => flex-basis: 33.33%;
+flex-basis-25      // => flex-basis: 25%;
+```
+Responsive versions of these classes have been removed from the build by default, but can be easily added in (see below).
+
+###Trimming the build
+
+It's not practical to include 5 responsive classes for every single css property so by default only the key properties above have been included. You can enable the ones you need by adjusting these variables:
+
+```
+$enable-flex-grow-responsive: true !default;  //the only one that is true by default
+$enable-flex-wrap-responsive: false !default;
+$enable-flex-basis-responsive: false !default;
+$enable-justify-between-responsive: false !default;
+$enable-justify-around-responsive: false !default;
+$enable-align-baseline-responsive: false !default;
+$enable-align-self-responsive: false !default; 
+```
+
+The default build is around 6kb unzipped.
 
 ###Breakpoints
 
@@ -134,42 +191,6 @@ $grid-breakpoints: (
 
 ```
 
-###Flex grow
-
-The flex-grow property is set on child elements. It specifies how large a child element is compared to its sibling elements. In addition to specifying a break point you must also specify a "growth" factor. e.g. 
-
-```
-flex-grow-2-xs
-flex-grow-3-lg
-flex-grow-1-xl
-```
-
-As you can see, it's possible to reset the child element to the same size as its siblings by putting the growth factor back to 1.
-
-A list of available growth factors is specified in the variables file: `$flex-grow-factors: 1, 2, 3;`. Only 1, 2 and 3 are included by default. You can over-ride this list if you need some special growth factor.
-
-You can remove flex grow from your build by setting `$enable-flex-grow: false;`
-
-
-###Additional container classes
-
-By default only the core classes listed above are included. There are several other flex container classes that can be optionally enabled. Use the following variables to enable these in your build.
-
-```
-$enable-flex-wrap: true;
-$enable-flex-between: true;
-$enable-flex-around: true;
-```
-
-These would be used as expected on the flex container e.g. flex-wrap-xs, flex-between-md, flex-around-xl etc.
-
-
 ### Hold up! These class names are global!
 
-I know. I very quickly got sick and tired of using [css modules](https://github.com/css-modules/css-modules) for layouts because it's much harder to debug layout issues when the class names are unreadable. I'm comfortable introducing a few global class names. If you aren't then I'll leave you to do your own special build.
-
-###If you want more, do it yourself!!
- 
-Currently the uncompressed build is only 4kb and I'm reluctant to add any more responsive classes when there is plenty to work with here already. 
-
-As I said at the start flexbox is simple and easy to use on its own, without needing to wrap it in some higher level abstraction.
+I know. I very quickly got sick and tired of using [css modules](https://github.com/css-modules/css-modules) for layouts because it's much harder to debug layout issues when the class names are long and unreadable. I'm comfortable introducing global class names for layouts. If you aren't then I'll leave you to do your own special build.
