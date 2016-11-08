@@ -70,10 +70,10 @@ The "justify" key word is used to position items horizontally - this will set th
 
 ```
 justify-start(-xs)     // => justify-content: flex-start;
-justify-center    // => justify-content: center;
-justify-end       // => justify-content: flex-end; 
-justify-around    // => justify-content: space-between; 
-justify-between   // => justify-content: space-around; 
+justify-center         // => justify-content: center;
+justify-end            // => justify-content: flex-end; 
+justify-around         // => justify-content: space-between; 
+justify-between        // => justify-content: space-around; 
 ```
 
 Note that these classes should be applied to the container div and will affect ALL child elements, e.g.
@@ -102,8 +102,8 @@ If you wish to specify custom vertical alignment for individual child elements t
 align-self-start        // => align-self: flex-start;
 align-self-center       // => align-self: center;
 align-self-end          // => align-self: flex-end; 
-align-self-stretch      // => align-items: stretch;
-align-self-baseline     // => align-items: baseline; 
+align-self-stretch      // => align-self: stretch;
+align-self-baseline     // => align-self: baseline; 
 ```
 
 ###The "horizontal" and "vertical" axes depend on the flex-direction
