@@ -22,16 +22,18 @@ Or alternatively, use the pre-compiled `flexbox-lite.min.css` file in the dist f
 
 By itslef, Flexbox is a wonderfully versatile and expressive system. Unfortunately many packages such as [bootstrap v4](http://v4-alpha.getbootstrap.com/layout/flexbox-grid/) and [flexboxgrid](http://flexboxgrid.com/) force flexbox into being a "grid" system with 12 columns. To me, this seems like forcing a porsche into being a bicycle. 
 
-The version that ships with [ng-material](https://github.com/justindujardin/ng2-material/blob/master/src/core/style/layout.scss) is much better, but still not good enough. It attempts to abstract away the inner workings of flexbox for you. And it is 23 times bigger than this package.
+The version that ships with [ng-material](https://github.com/justindujardin/ng2-material/blob/master/src/core/style/layout.scss) is much better, but still abstracts the inner workings of flexbox and forces you to learn a cutom interface. 
 
-This package comes out at 6kb unzipped and opts for a pure OOCSS approach. The classnames are based on the css properties and follow a simple naming scheme, so there is no need to learn some custom api.
+I won't even go into the problems with packages that use javascript to set inline styles, or the computations that are often done to simulate css breakpoints.
+
+This package comes out at 7kb unzipped and opts for a pure OOCSS approach. The classnames are based on the css properties and follow an obvious naming scheme, so there is no need to learn some custom interface.
 
 Under the hood, this package only uses a few key styles: 
 
 - flex-direction 
 - justify-content 
 - align-items/align-self
-- flex/grow/flex-basis
+- flex-grow/flex-basis
 
 Each of these properties is applied to the standard responsive breakpoints (xs, sm, md, lg, xl).
 
@@ -39,9 +41,9 @@ If you haven't taken the time to understand flexbox yet I recommend you take a l
 
 ###Flex containers (flex-direction)
 
-In the flexbox system, a container div is EITHER a row OR a column. This is completely different from most grid layouts where you put columns inside rows.
+In the flexbox system, a container div is EITHER a row OR a column. (This is completely different from most grid layouts where you put columns inside rows).
 
-This package allows you to optionally add a breakpoint to the end of most classnames. e.g. 
+This package uses the "row" and "col" keywords. Like most classnames in this package, you can optionally add a breakpoint to the end e.g. 
 
 ```
 row        // all breakpoints (synonymous with row-xs)
@@ -52,7 +54,7 @@ row-lg
 row-xl
 ```
 
-Here is an example of a responsive flexbox container - child items will be stacked vertically on xs devices, and stacked horizontally on md and upwards:
+Here is an example of a responsive flexbox container - the child elements will be stacked vertically on xs devices, and horizontally on md and above:
 
 ```
 <div class="col-xs row-md"> {child elements} </div>
@@ -66,7 +68,7 @@ You can reverse the order of child items using:
 
 ###Horizontal positioning (justify-content)
 
-The "justify" key word is used to position items horizontally - this will set the "justify-content" css property. The following options can be used:
+The "justify" key word is used to position items horizontally. The following options can be used:
 
 ```
 justify-start(-xs)     // => justify-content: flex-start;
@@ -84,7 +86,7 @@ Note that these classes should be applied to the container div and will affect A
 
 ###Vertical positioning (align-items)
 
-The "align" key word is used to position items vertically - this will set the "align-items" css property.
+The "align" key word is used to position items vertically. The following options can be used:
 
 ```
 align-start(-xs)   // => align-items: flex-start;
@@ -94,9 +96,9 @@ align-stretch      // => align-items: stretch;
 align-baseline     // => align-items: baseline; 
 ```
 
-These classes are also applied to the container div and affect ALL child elements.
+These classes are also applied to the container div and affect all child elements.
 
-If you wish to specify custom vertical alignment for individual child elements then apply the more specific "align-self" class to the child element:
+If you wish to specify custom vertical alignment for individual child elements then apply the "align-self" class to the child element:
 
 ```
 align-self-start        // => align-self: flex-start;
@@ -108,24 +110,23 @@ align-self-baseline     // => align-self: baseline;
 
 ###The "horizontal" and "vertical" axes depend on the flex-direction
 
-Normally, when the flex-direction is set to row, the "justify-content" property controls the horizontal axis and "align-items" controls the vertical axis.
+Normally, when the flex-direction is set to row, the "justify" property controls the horizontal axis and "align" controls the vertical axis.
 
 HOWEVER: when you set flex-direction to column the axes are reversed - "justify" now controls the vertical axis, and "align" controls the horizontal. 
+
 
 | flex-direction | "justify" axis | "align" axis |
 | -------------- | -------------- | ------------ |
 | row            | horizontal     | vertical     |
 | col            | vertical       | horizontal   |
 
-It would be possible to do some clever css tricks to map the css class names to different css properties depending on the flex-direction. However, the entire purpose of this package is to offer direct access to the raw css properties using OOCSS, without abstracting away their inner workings.
-
 If you're not sure what all this is about then re-read [this article](https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties).
 
 ###Flex grow and shrink
 
-The flex property is set on child elements. It specifies how large a child element is compared to its sibling elements. 
+The "flex" property can be added to child elements to specify how large a child element should be compared to its sibling elements. 
 
-For instance, if you want all the child elements to share the available space equally, then give them all a class of flex-1. If you give one elements a class of flex-2 it will be twice as big as its siblings.
+For instance, if you want all the child elements to share the available space equally, then give them all a class of flex-1. If you give one element a class of flex-2 it will be twice as big as its siblings.
 
 ```
 flex-1(-xs)     // => flex-grow: 1; 
@@ -137,14 +138,18 @@ etc.
 A list of available growth factors is specified in the variables file: 
 
 ```
-$flex-grow-factors: 1, 2, 3, 4, 5;
+$flex-grow-factors: 1, 2, 3, 4, 5 !default;
 ``` 
 
-Only 1-5 are included by default. You can over-ride this variable if you need more. 
+Only 1-5 are included by default. You can over-ride this variable depending on your needs. 
+
+###Flex wrap
+
+The flex-wrap(-xs) class is applied to the container div and it allows child elements to go onto a new line rather than packing them all onto a single line.
 
 ###Flex-basis
 
-The "flex-basis" property is a lot like width/height except it's "direction" is unspecified. It could be vertical or horizontal depending on whether the flex direction of its parent is row or col.
+The "flex-basis" property is a lot like width/height except it's "direction" is unspecified. It could be vertical or horizontal depending on the flex direction of its parent.
 
 In most cases you actively don't want this behaviour. When you set the width property, you don't want it to suddenly become the height on mobile. 
 
@@ -162,19 +167,17 @@ Responsive versions of these classes have been removed from the build by default
 
 ###Trimming the build
 
-It's not practical to include 5 responsive classes for every single css property so by default only the key properties above have been included. You can enable the ones you need by adjusting these variables:
+The default build is around 7kb unzipped. You can get rid of the responsive versions of certain classes if you want to trim it down even further.
 
 ```
-$enable-flex-grow-responsive: true !default;  //the only one that is true by default
-$enable-flex-wrap-responsive: false !default;
-$enable-flex-basis-responsive: false !default;
-$enable-justify-between-responsive: false !default;
-$enable-justify-around-responsive: false !default;
-$enable-align-baseline-responsive: false !default;
-$enable-align-self-responsive: false !default; 
+$enable-flex-grow-responsive:        true !default;
+$enable-flex-wrap-responsive:        true !default;
+$enable-flex-basis-responsive:       false !default; // false by default
+$enable-justify-between-responsive:  true !default;
+$enable-justify-around-responsive:   true !default;
+$enable-align-baseline-responsive:   true !default;
+$enable-align-self-responsive:       true !default;
 ```
-
-The default build is around 6kb unzipped.
 
 ###Breakpoints
 
