@@ -1,6 +1,6 @@
 {
   "name": "flexbox-lite",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Minimal responsive classes for flexbox",
   "main": "src/flexbox-lite.scss",
   "scripts": {

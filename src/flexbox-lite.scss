@@ -12,7 +12,7 @@
     flex-direction: row;
 }
 
-.col {
+.col, .column {
     @include flex-container();
     flex-direction: column;
 }
@@ -72,13 +72,11 @@
 .align-start {
     align-items: flex-start;
     align-content: flex-start;
-    text-align: left;
 }
 
 .align-center {
     align-items: center;
     align-content: center;
-    text-align: center;
 }
 
 .align-end {
@@ -205,13 +203,11 @@
         .align-start-#{$key} {
             align-items: flex-start;
             align-content: flex-start;
-            text-align: left;
         }
 
         .align-center-#{$key} {
             align-items: center;
             align-content: center;
-            text-align: center;
         }
 
         .align-end-#{$key} {
