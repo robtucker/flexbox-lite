@@ -4,7 +4,6 @@
 @mixin flex-container() {
     display: -webkit-flex; 
     display: flex;
-    width: 100%;
 }
 
 .row {
