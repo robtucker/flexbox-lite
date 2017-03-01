@@ -60,6 +60,14 @@
     justify-content: flex-end;
 }
 
+.justify-right {
+    margin-left: auto;
+}
+
+.justify-left {
+    margin-right: auto;
+}
+
 .justify-between {
     justify-content: space-between;
 }        
